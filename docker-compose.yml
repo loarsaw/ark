@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  mongo-main:
+    image: mongo:4.4
+    container_name: mongo-main
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-main-data:/data/db
+    networks:
+      - micro-net
+
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URL=mongodb://mongo-main:27017/task
+    depends_on:
+      - mongo-main
+    networks:
+      - micro-net
+
+volumes:
+  mongo-main-data:
+
+networks:
+  micro-net:
+    driver: bridge
