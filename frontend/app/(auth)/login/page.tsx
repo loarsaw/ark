@@ -1,19 +1,21 @@
-"use client"
+"use client";
 
+import { axiosInstance } from "@/utils/axiosIntance";
 import React, { useState } from "react";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+    await axiosInstance.post("/signin", { email: email, password: password });
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-        <form onSubmit={handleLogin} className="space-y-4">
+        <div onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="block mb-1 text-gray-600">Email</label>
             <input
@@ -35,12 +37,12 @@ const LoginPage = () => {
             />
           </div>
           <button
-            type="submit"
+            onClick={handleLogin}
             className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
           >
             Login
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );

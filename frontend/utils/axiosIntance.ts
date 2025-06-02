@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-    baseURL: "http:localhost:8000/api/v1",
+    baseURL: "https:closing-dinosaur-apt.ngrok-free.app/api",
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "69420",
     }
 })
