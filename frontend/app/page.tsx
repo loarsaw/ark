@@ -1,6 +1,6 @@
 "use client";
 import { axiosInstance } from "@/utils/axiosIntance";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const TaskPage = () => {
   const [tasks, setTasks] = useState([
@@ -11,17 +11,28 @@ const TaskPage = () => {
 
   const [newTask, setNewTask] = useState("");
 
-  const handleAddTask = (e) => {
+  const handleAddTask = async (e) => {
     e.preventDefault();
-   axiosInstance.post()
+    await axiosInstance.post("/task", {
+      ownerId: "abc",
+      title: "helllo",
+      status: "pending",
+    });
   };
 
-  const toggleTask = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
+  useEffect(() => {
+    getAllTask();
+  }, []);
+  async function getAllTask() {
+    await axiosInstance.get("/tasks?ownerId=abc");
+  }
+
+  const toggleTask = async () => {
+    await axiosInstance.put("/update-task", {
+      id: "3bc2a7c4-6555-4f21-84bf-d42dba719271",
+      title: "new title",
+      status: "pending",
+    });
   };
 
   return (
@@ -43,6 +54,7 @@ const TaskPage = () => {
           >
             Add
           </button>
+          <button onClick={toggleTask}>update task</button>
         </form>
 
         <ul className="space-y-3">
