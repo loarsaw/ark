@@ -5,7 +5,6 @@ import { getMongoDBInstance } from "../../config/mongo";
 export const updateTask = async (req: Request, res: Response) => {
     try {
         const { title, status, id } = req.body;
-
         const db = await getMongoDBInstance();
         const tasks = db.collection("tasks");
 
