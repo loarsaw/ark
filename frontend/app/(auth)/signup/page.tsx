@@ -1,4 +1,5 @@
-"use client"
+"use client";
+import { axiosInstance } from "@/utils/axiosIntance";
 import React, { useState } from "react";
 
 const SignupPage = () => {
@@ -13,13 +14,12 @@ const SignupPage = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
-    // console.log("Signup Data:", form);
+    await axiosInstance.post("/signup", {
+      email: form.email,
+      password: form.password,
+    });
   };
 
   return (
