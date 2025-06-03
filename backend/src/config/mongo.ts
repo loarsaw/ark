@@ -7,7 +7,7 @@ let db: Db | null = null;
 export async function getMongoDBInstance(): Promise<Db> {
     if (db) return db;
 
-    const uri = process.env.MONGO_CONNECTION_STRING || "mongodb://localhost:27017";
+    const uri = process.env.MONGO_CONNECTION_STRING || "mongodb://mongo-main:27017";
     const dbName = process.env.DB_NAME || "task";
 
     if (!client) {
