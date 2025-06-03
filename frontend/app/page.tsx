@@ -1,4 +1,5 @@
 "use client";
+import { axiosInstance } from "@/utils/axiosIntance";
 import React, { useState } from "react";
 
 const TaskPage = () => {
@@ -12,16 +13,7 @@ const TaskPage = () => {
 
   const handleAddTask = (e) => {
     e.preventDefault();
-    if (!newTask.trim()) return;
-
-    const task = {
-      id: tasks.length + 1,
-      title: newTask.trim(),
-      completed: false,
-    };
-
-    setTasks([task, ...tasks]);
-    setNewTask("");
+   axiosInstance.post()
   };
 
   const toggleTask = (id) => {
