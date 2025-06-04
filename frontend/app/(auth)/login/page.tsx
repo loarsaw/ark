@@ -1,34 +1,33 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { CheckCircle2, Eye, EyeOff } from "lucide-react"
-import { useAuth } from "@/hooks/useAuth"
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { CheckCircle2, Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Login() {
-  const router = useRouter()
-  const { login } = useAuth()
-
-  const [formData, setFormData] = useState({ email: "", password: "" })
-  const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter();
+  const { login } = useAuth();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError("")
-    setIsLoading(true)
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
 
     try {
-      await login(formData)
-      router.push("/")
+      await login(formData.email, formData.password);
+      router.push("/");
     } catch (err: any) {
-      setError(err?.response?.data?.message || "Invalid email or password")
+      setError(err?.response?.data?.message || "Invalid email or password");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -61,13 +60,18 @@ export default function Login() {
               placeholder="Enter your email"
               required
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium text-black">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium text-black"
+            >
               Password
             </label>
             <div className="relative">
@@ -77,7 +81,9 @@ export default function Login() {
                 placeholder="Enter your password"
                 required
                 value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               />
               <button
@@ -85,7 +91,11 @@ export default function Login() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-black"
               >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
               </button>
             </div>
           </div>
@@ -100,7 +110,10 @@ export default function Login() {
 
           <div className="text-center text-sm">
             <span className="text-black">{"Don't have an account? "}</span>
-            <Link href="/signup" className="text-blue-600 hover:underline font-medium">
+            <Link
+              href="/signup"
+              className="text-blue-600 hover:underline font-medium"
+            >
               Sign up
             </Link>
           </div>
@@ -115,5 +128,5 @@ export default function Login() {
         </form>
       </div>
     </div>
-  )
+  );
 }

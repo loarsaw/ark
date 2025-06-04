@@ -16,30 +16,20 @@ export const useAuth = () => {
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
+  console.log(user, "user");
   const [token, setToken] = useState<string | null>(() => {
     return localStorage.getItem("token");
   });
 
   const signup = async (email: string, password: string) => {
     try {
-      const res = await axiosInstance.post<AuthResponse>("/signup", {
+      await axiosInstance.post<AuthResponse>("/signup", {
         email,
         password,
       });
-      const { user, token } = res.data;
-      setUser(user);
-      setToken(token);
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", token);
     } catch (error: any) {
       throw new Error(error?.response?.data?.message || "Signup failed");
     }
-  };
-
-  const verifyToken = async (token: string) => {
-    await axiosInstance.post("/verify", {
-      token: token,
-    });
   };
 
   const login = async (email: string, password: string) => {
