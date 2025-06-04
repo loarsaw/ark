@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from 'uuid';
 import { getMongoDBInstance } from "../../../config/mongo";
 import { generateVerificationLink } from "../../../utils/util";
+import { sendVerificationEmail } from "../../../utils/mail";
 const SALT_ROUNDS = 10;
 
 export const signup = async (req: Request, res: Response) => {
@@ -15,7 +16,9 @@ export const signup = async (req: Request, res: Response) => {
         const db = await getMongoDBInstance();
         const publicCollection = db.collection("public");
         const privateCollection = db.collection("private");
-        const token = generateVerificationLink(email)
+        const token = await generateVerificationLink(email)
+        const value = await sendVerificationEmail(email, token)
+        console.log(value)
         const existingUser = await privateCollection.findOne({ email });
 
         if (existingUser) {

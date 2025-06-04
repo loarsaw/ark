@@ -1,17 +1,18 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { useForm } from "react-hook-form"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { CheckCircle2, Eye, EyeOff, Check } from "lucide-react"
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { CheckCircle2, Eye, EyeOff, Check } from "lucide-react";
+import { axiosInstance } from "@/utils/axiosIntance";
 
 export default function Signup() {
-  const router = useRouter()
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [error, setError] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -19,57 +20,53 @@ export default function Signup() {
     watch,
     setError: setFormError,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
-  const password = watch("password")
-  const confirmPassword = watch("confirmPassword")
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
 
   const passwordRequirements = [
     { text: "At least 8 characters", met: password?.length >= 8 },
     { text: "Contains uppercase letter", met: /[A-Z]/.test(password) },
     { text: "Contains lowercase letter", met: /[a-z]/.test(password) },
     { text: "Contains number", met: /\d/.test(password) },
-  ]
+  ];
 
   const onSubmit = async (data: any) => {
-    setError("")
+    setError("");
 
     if (data.password !== data.confirmPassword) {
       setFormError("confirmPassword", {
         type: "manual",
         message: "Passwords do not match",
-      })
-      return
+      });
+      return;
     }
 
     if (!passwordRequirements.every((req) => req.met)) {
-      setError("Password does not meet requirements")
-      return
+      setError("Password does not meet requirements");
+      return;
     }
 
-    setIsLoading(true)
-    setTimeout(() => {
-      const users = JSON.parse(localStorage.getItem("users") || "[]")
-
-      if (users.find((u: any) => u.email === data.email)) {
-        setError("Email already exists")
-        setIsLoading(false)
-        return
-      }
-
-      const newUser = {
+    setIsLoading(true);
+    try {
+      const res = await axiosInstance.post("/signup", {
         name: data.name,
         email: data.email,
         password: data.password,
+      });
+
+      if (res.status === 201) {
+        router.push("/login");
+      } else {
+        setError("Signup failed. Please try again.");
       }
-
-      users.push(newUser)
-      localStorage.setItem("users", JSON.stringify(users))
-      localStorage.setItem("currentUser", newUser.email)
-
-      router.push("/")
-    }, 1000)
-  }
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Something went wrong.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-4">
@@ -104,12 +101,17 @@ export default function Signup() {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             />
             {errors.name && (
-              <p className="text-xs text-red-600">{errors.name.message as string}</p>
+              <p className="text-xs text-red-600">
+                {errors.name.message as string}
+              </p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -120,12 +122,17 @@ export default function Signup() {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             />
             {errors.email && (
-              <p className="text-xs text-red-600">{errors.email.message as string}</p>
+              <p className="text-xs text-red-600">
+                {errors.email.message as string}
+              </p>
             )}
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <div className="relative">
@@ -141,7 +148,11 @@ export default function Signup() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500"
               >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
               </button>
             </div>
 
@@ -150,9 +161,13 @@ export default function Signup() {
                 {passwordRequirements.map((req, index) => (
                   <div key={index} className="flex items-center text-xs">
                     <Check
-                      className={`w-3 h-3 mr-2 ${req.met ? "text-blue-500" : "text-gray-300"}`}
+                      className={`w-3 h-3 mr-2 ${
+                        req.met ? "text-blue-500" : "text-gray-300"
+                      }`}
                     />
-                    <span className={req.met ? "text-blue-600" : "text-gray-500"}>
+                    <span
+                      className={req.met ? "text-blue-600" : "text-gray-500"}
+                    >
                       {req.text}
                     </span>
                   </div>
@@ -162,14 +177,19 @@ export default function Signup() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="confirmPassword"
+              className="text-sm font-medium text-gray-700"
+            >
               Confirm Password
             </label>
             <div className="relative">
               <input
                 id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
-                {...register("confirmPassword", { required: "Please confirm your password" })}
+                {...register("confirmPassword", {
+                  required: "Please confirm your password",
+                })}
                 placeholder="Confirm your password"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               />
@@ -178,7 +198,11 @@ export default function Signup() {
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500"
               >
-                {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showConfirmPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
               </button>
             </div>
             {errors.confirmPassword && (
@@ -198,12 +222,15 @@ export default function Signup() {
 
           <div className="text-center text-sm">
             <span className="text-gray-600">Already have an account? </span>
-            <Link href="/login" className="text-blue-600 hover:underline font-medium">
+            <Link
+              href="/login"
+              className="text-blue-600 hover:underline font-medium"
+            >
               Sign in
             </Link>
           </div>
         </form>
       </div>
     </div>
-  )
+  );
 }
