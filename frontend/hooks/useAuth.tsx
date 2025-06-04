@@ -1,5 +1,6 @@
 "use client";
 import { axiosInstance } from "@/utils/axiosIntance";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface User {
@@ -14,7 +15,15 @@ interface AuthResponse {
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
-
+  const router = useRouter();
+  useEffect(() => {
+    if (!token) {
+      router.push("/login");
+    } else {
+      router.push("/");
+    }
+  }, [user, token]);
+  console.log(token, "hii");
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");

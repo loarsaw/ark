@@ -25,11 +25,10 @@ export default function VerificationPage() {
       setStatus("verifying");
       try {
         const res = await axiosInstance.post("/verify", { token });
-        console.log(res.status)
+        console.log(res.status);
         if (res.status) {
           setStatus("success");
           setMessage("Your email has been successfully verified!");
-          setTimeout(() => router.push("/login"), 3000);
         } else {
           setStatus("error");
           setMessage(res.data.message || "Verification failed.");
@@ -59,9 +58,7 @@ export default function VerificationPage() {
           <div>
             <h2 className="text-2xl font-bold text-blue-700 mb-4">Verified!</h2>
             <p className="text-black">{message}</p>
-            <p className="mt-4 text-sm text-black">
-              Redirecting to login...
-            </p>
+            <p className="mt-4 text-sm text-black">Redirecting to login...</p>
           </div>
         )}
         {status === "error" && (

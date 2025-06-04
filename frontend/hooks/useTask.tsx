@@ -2,14 +2,12 @@ import { NewTaskForm, Task } from "@/types/types";
 import { axiosInstance } from "@/utils/axiosIntance";
 import { useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
-import { useRouter } from "next/navigation";
 
 export const useTask = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const { isAuthenticated, token, user } = useAuth();
-  const router = useRouter();
+  const { token, user } = useAuth();
   const [depsUpdated, setDepsUpdate] = useState(() => Date.now());
 
   const getAuthHeaders = () => ({
@@ -17,10 +15,6 @@ export const useTask = () => {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  useEffect(() => {
-    if (!isAuthenticated) router.push("/login");
-  }, [isAuthenticated, router]);
 
   const fetchTasks = async () => {
     setLoading(true);

@@ -2,6 +2,7 @@
 
 import { Dialog } from "@/components/Dialog";
 import { DropdownMenu } from "@/components/DialogMenu";
+import { useAuth } from "@/hooks/useAuth";
 import { useTask } from "@/hooks/useTask";
 import { NewTaskForm, Task } from "@/types/types";
 import { useState, useCallback, useMemo } from "react";
@@ -17,7 +18,7 @@ const TaskManager: React.FC = () => {
   });
   const [user] = useState<string>("");
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-
+  const { logout } = useAuth();
   const inProgressTasks = useMemo(
     () => tasks.filter((task) => task.status === "in-progress"),
     [tasks]
@@ -93,7 +94,12 @@ const TaskManager: React.FC = () => {
               </svg>
               New Task
             </button>
-            <button className="border border-gray-300 hover:bg-gray-50 text-black px-4 py-2 rounded-md flex items-center gap-2">
+            <button
+              onClick={() => {
+                logout();
+              }}
+              className="border hover:cursor-pointer border-gray-300 hover:bg-gray-50 text-black px-4 py-2 rounded-md flex items-center gap-2"
+            >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
