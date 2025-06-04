@@ -4,7 +4,6 @@ import { Dialog } from "@/components/Dialog";
 import { DropdownMenu } from "@/components/DialogMenu";
 import { useTask } from "@/hooks/useTask";
 import { NewTaskForm, Task } from "@/types/types";
-import { axiosInstance } from "@/utils/axiosIntance";
 import { useState, useCallback, useMemo } from "react";
 
 const TaskManager: React.FC = () => {
@@ -61,10 +60,13 @@ const TaskManager: React.FC = () => {
     >
   ) => {
     const { name, value } = e.target;
-    setEditingTask((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setEditingTask((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        [name]: value,
+      } as Task;
+    });
   };
 
   console.log(editingTask, "hi");
