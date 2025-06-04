@@ -46,6 +46,8 @@ export const useTask = () => {
       if (data.taskId == null) return;
       await axiosInstance.put<Task>(`/update-task`, {
         id: data.taskId,
+        title: data.title,
+        status: data.status,
       });
       setDepsUpdate(Date.now());
     } catch (err: any) {
@@ -53,7 +55,19 @@ export const useTask = () => {
       setError("Failed to update task.");
     }
   };
-
+  const toggleTask = async (data: Task) => {
+    try {
+      if (data.taskId == null) return;
+      await axiosInstance.put<Task>(`/update-task`, {
+        id: data.taskId,
+        status: data.status,
+      });
+      setDepsUpdate(Date.now());
+    } catch (err: any) {
+      console.error(err);
+      setError("Failed to update task.");
+    }
+  };
   const deleteTask = async (id: number) => {
     try {
       await axiosInstance.delete(`/tasks/${id}`);
@@ -76,5 +90,6 @@ export const useTask = () => {
     createTask,
     updateTask,
     deleteTask,
+    toggleTask,
   };
 };

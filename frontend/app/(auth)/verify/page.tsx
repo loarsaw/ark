@@ -25,7 +25,8 @@ export default function VerificationPage() {
       setStatus("verifying");
       try {
         const res = await axiosInstance.post("/verify", { token });
-        if (res.data.success) {
+        console.log(res.status)
+        if (res.status) {
           setStatus("success");
           setMessage("Your email has been successfully verified!");
           setTimeout(() => router.push("/login"), 3000);
@@ -49,7 +50,7 @@ export default function VerificationPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-200 p-4">
       <div className="bg-white rounded-lg shadow-md max-w-md w-full p-6 text-center">
         {status === "idle" && (
-          <p className="text-gray-700">Waiting for verification...</p>
+          <p className="text-black">Waiting for verification...</p>
         )}
         {status === "verifying" && (
           <p className="text-blue-600 font-semibold">Verifying your email...</p>
@@ -57,8 +58,8 @@ export default function VerificationPage() {
         {status === "success" && (
           <div>
             <h2 className="text-2xl font-bold text-blue-700 mb-4">Verified!</h2>
-            <p className="text-gray-700">{message}</p>
-            <p className="mt-4 text-sm text-gray-500">
+            <p className="text-black">{message}</p>
+            <p className="mt-4 text-sm text-black">
               Redirecting to login...
             </p>
           </div>
@@ -68,7 +69,7 @@ export default function VerificationPage() {
             <h2 className="text-2xl font-bold text-red-600 mb-4">
               Verification Failed
             </h2>
-            <p className="text-gray-700">{message}</p>
+            <p className="text-black">{message}</p>
             <button
               onClick={() => router.push("/signup")}
               className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"

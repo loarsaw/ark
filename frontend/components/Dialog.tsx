@@ -19,10 +19,10 @@ export const Dialog = ({
       ></div>
       <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 relative z-10">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold">{title}</h3>
+          <h3 className="text-lg text-black font-semibold">{title}</h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-xl font-bold"
+            className="text-black hover:text-black text-xl font-bold"
           >
             ×
           </button>

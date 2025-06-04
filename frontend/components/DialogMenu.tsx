@@ -20,7 +20,7 @@ export const DropdownMenu = ({
   deleteTask: (id: string) => void;
 }) => {
   return (
-    <div className="relative">
+    <div className="relative text-black">
       <button
         onClick={() =>
           setActiveDropdown(activeDropdown === taskId ? null : taskId)

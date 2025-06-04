@@ -4,16 +4,23 @@ import { getMongoDBInstance } from "../../config/mongo";
 
 export const updateTask = async (req: Request, res: Response) => {
     try {
-        const { title, status, id } = req.body;
+        const updatedTask = req.body;
+
+        if (!updatedTask.taskId) {
+            res.status(400).json({ message: "taskId is required" });
+            return
+        }
+
         const db = await getMongoDBInstance();
         const tasks = db.collection("tasks");
 
+        const { taskId, ...updateFields } = updatedTask;
+
         const result = await tasks.updateOne(
-            { taskId: id },
+            { taskId },
             {
                 $set: {
-                    title,
-                    status,
+                    ...updateFields,
                     updatedAt: new Date(),
                 },
             }
@@ -21,7 +28,7 @@ export const updateTask = async (req: Request, res: Response) => {
 
         if (result.matchedCount === 0) {
             res.status(404).json({ message: "Task not found" });
-            return;
+            return
         }
 
         res.status(200).json({ message: "Task updated" });
@@ -30,6 +37,7 @@ export const updateTask = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
 
 export const createTask = async (req: Request, res: Response) => {
     try {

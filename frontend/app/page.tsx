@@ -285,7 +285,7 @@ const TaskManager: React.FC = () => {
           onClose={() => setIsCreateDialogOpen(false)}
           title="Create New Task"
         >
-          <div className="space-y-4">
+          <div className="space-y-4 text-black">
             <div>
               <label className="block text-sm font-medium mb-1">Title</label>
               <input
@@ -335,7 +335,7 @@ const TaskManager: React.FC = () => {
           title="Edit Task"
         >
           {editingTask && (
-            <div className="space-y-4">
+            <div className=" text-black space-y-4">
               <div>
                 <label className="block mb-1 font-medium">Title</label>
                 <input
@@ -366,7 +366,6 @@ const TaskManager: React.FC = () => {
                   updateTask(editingTask).then(() => {
                     setIsCreateDialogOpen(false);
                     setEditingTask({
-                      createdAt: new Date(),
                       status: "in-progress",
                       taskId: "",
                       title: "",

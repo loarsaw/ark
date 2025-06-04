@@ -78,7 +78,7 @@ export default function Signup() {
             </div>
           </div>
           <h2 className="text-2xl font-semibold text-center">Create account</h2>
-          <p className="text-center text-gray-500 text-sm">
+          <p className="text-center text-black text-sm">
             Sign up to start managing your tasks
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function Signup() {
           )}
 
           <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium text-gray-700">
+            <label htmlFor="name" className="text-sm font-medium text-black">
               Full Name
             </label>
             <input
@@ -110,7 +110,7 @@ export default function Signup() {
           <div className="space-y-2">
             <label
               htmlFor="email"
-              className="text-sm font-medium text-gray-700"
+              className="text-sm font-medium text-black"
             >
               Email
             </label>
@@ -131,7 +131,7 @@ export default function Signup() {
           <div className="space-y-2">
             <label
               htmlFor="password"
-              className="text-sm font-medium text-gray-700"
+              className="text-sm font-medium text-black"
             >
               Password
             </label>
@@ -146,7 +146,7 @@ export default function Signup() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-black"
               >
                 {showPassword ? (
                   <EyeOff className="h-4 w-4" />
@@ -166,7 +166,7 @@ export default function Signup() {
                       }`}
                     />
                     <span
-                      className={req.met ? "text-blue-600" : "text-gray-500"}
+                      className={req.met ? "text-blue-600" : "text-black"}
                     >
                       {req.text}
                     </span>
@@ -179,7 +179,7 @@ export default function Signup() {
           <div className="space-y-2">
             <label
               htmlFor="confirmPassword"
-              className="text-sm font-medium text-gray-700"
+              className="text-sm font-medium text-black"
             >
               Confirm Password
             </label>
@@ -196,7 +196,7 @@ export default function Signup() {
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-black"
               >
                 {showConfirmPassword ? (
                   <EyeOff className="h-4 w-4" />
@@ -221,7 +221,7 @@ export default function Signup() {
           </button>
 
           <div className="text-center text-sm">
-            <span className="text-gray-600">Already have an account? </span>
+            <span className="text-black">Already have an account? </span>
             <Link
               href="/login"
               className="text-blue-600 hover:underline font-medium"

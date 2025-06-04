@@ -40,7 +40,7 @@ export default function Login() {
             </div>
           </div>
           <h2 className="text-2xl font-semibold text-center">Welcome back</h2>
-          <p className="text-center text-gray-500 text-sm">
+          <p className="text-center text-black text-sm">
             Sign in to your account to continue
           </p>
         </div>
@@ -52,7 +52,7 @@ export default function Login() {
           )}
 
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="text-sm font-medium text-black">
               Email
             </label>
             <input
@@ -67,7 +67,7 @@ export default function Login() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="text-sm font-medium text-black">
               Password
             </label>
             <div className="relative">
@@ -83,7 +83,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-black"
               >
                 {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
@@ -99,13 +99,13 @@ export default function Login() {
           </button>
 
           <div className="text-center text-sm">
-            <span className="text-gray-600">{"Don't have an account? "}</span>
+            <span className="text-black">{"Don't have an account? "}</span>
             <Link href="/signup" className="text-blue-600 hover:underline font-medium">
               Sign up
             </Link>
           </div>
 
-          <div className="mt-4 p-3 bg-gray-50 rounded-lg text-center text-xs text-gray-600">
+          <div className="mt-4 p-3 bg-gray-50 rounded-lg text-center text-xs text-black">
             <strong>Demo credentials:</strong>
             <br />
             Email: demo@example.com
