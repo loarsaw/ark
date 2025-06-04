@@ -15,7 +15,7 @@ const verifyAuth = (req: Request, res: Response, next: NextFunction) => {
             res.status(403).json({ error: "Invalid token." });
             return
         }
-        console.log(req.body, "helo")
+        console.log(decoded, "helo" , token , "tokeb")
 
         if (decoded && typeof decoded === "object" && "username" in decoded) {
             req.body.username = decoded.username;
