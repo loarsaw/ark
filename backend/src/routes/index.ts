@@ -16,7 +16,7 @@ router.post("/user", getPublicProfile)
 router.get("/tasks", getTasks);
 router.post("/task", createTask);
 router.put("/update-task", updateTask);
-router.put("/delete/:deleteId", deleteTask);
+router.delete("/delete/:deleteId", deleteTask);
 
 
 
