@@ -1,3 +1,4 @@
+"use client";
 import { axiosInstance } from "@/utils/axiosIntance";
 import { useState } from "react";
 

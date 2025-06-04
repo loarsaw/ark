@@ -123,7 +123,7 @@ export default function Login() {
             <br />
             Email: demo@example.com
             <br />
-            Password: demo123
+            Password: demo@example.com2A
           </div>
         </form>
       </div>
