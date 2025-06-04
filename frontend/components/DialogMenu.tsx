@@ -17,7 +17,7 @@ export const DropdownMenu = ({
   toggleTaskStatus: (id: string, status: string) => void;
   setEditingTask: (task: Task) => void;
   setIsEditDialogOpen: (open: boolean) => void;
-  deleteTask: (id: string) => void;
+  deleteTask: (id: string) => Promise<void>;
 }) => {
   return (
     <div className="relative text-black">

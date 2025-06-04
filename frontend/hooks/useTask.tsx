@@ -94,7 +94,7 @@ export const useTask = () => {
     }
   };
 
-  const deleteTask = async (id: number) => {
+  const deleteTask = async (id: string) => {
     try {
       await axiosInstance.delete(`/delete/${id}`, getAuthHeaders());
       setDepsUpdate(Date.now());
