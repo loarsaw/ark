@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/signin", signin);
-router.get("/verify", verify);
+router.post("/verify", verify);
 router.get("/tasks", getTasks);
 router.post("/task", createTask);
 router.put("/update-task", updateTask);

@@ -13,7 +13,7 @@ export default function VerificationPage() {
     "idle" | "verifying" | "success" | "error"
   >("idle");
   const [message, setMessage] = useState<string>("");
-
+  console.log(token, "toke");
   useEffect(() => {
     if (!token) {
       setStatus("error");
