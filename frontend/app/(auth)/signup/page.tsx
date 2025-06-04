@@ -23,7 +23,6 @@ export default function Signup() {
   } = useForm();
 
   const password = watch("password");
-  const confirmPassword = watch("confirmPassword");
 
   const passwordRequirements = [
     { text: "At least 8 characters", met: password?.length >= 8 },
