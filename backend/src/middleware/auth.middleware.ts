@@ -17,8 +17,8 @@ const verifyAuth = (req: Request, res: Response, next: NextFunction) => {
         }
         console.log(decoded, "helo" , token , "tokeb")
 
-        if (decoded && typeof decoded === "object" && "username" in decoded) {
-            req.body.username = decoded.username;
+        if (decoded && typeof decoded === "object" && "email" in decoded) {
+            req.body.email = decoded.email;
             next();
         } else {
             res.status(403).json({ error: "Token verification failed." });
