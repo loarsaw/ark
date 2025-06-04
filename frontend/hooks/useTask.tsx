@@ -45,7 +45,7 @@ export const useTask = () => {
     try {
       if (data.taskId == null) return;
       await axiosInstance.put<Task>(`/update-task`, {
-        id: data.taskId,
+        taskId: data.taskId,
         title: data.title,
         status: data.status,
       });
@@ -55,19 +55,16 @@ export const useTask = () => {
       setError("Failed to update task.");
     }
   };
-  const toggleTask = async (data: Task) => {
-    try {
-      if (data.taskId == null) return;
-      await axiosInstance.put<Task>(`/update-task`, {
-        id: data.taskId,
-        status: data.status,
+  async function toggleTask(id: string, task: string) {
+    axiosInstance
+      .put("/update-task", {
+        taskId: id,
+        status: task == "completed" ? "in-progress" : "completed",
+      })
+      .then(() => {
+        setDepsUpdate(Date.now());
       });
-      setDepsUpdate(Date.now());
-    } catch (err: any) {
-      console.error(err);
-      setError("Failed to update task.");
-    }
-  };
+  }
   const deleteTask = async (id: number) => {
     try {
       await axiosInstance.delete(`/tasks/${id}`);

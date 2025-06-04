@@ -14,7 +14,7 @@ export const DropdownMenu = ({
   task: Task;
   activeDropdown: string | null;
   setActiveDropdown: (id: string | null) => void;
-  toggleTaskStatus: (id: string) => void;
+  toggleTaskStatus: (id: string, status: string) => void;
   setEditingTask: (task: Task) => void;
   setIsEditDialogOpen: (open: boolean) => void;
   deleteTask: (id: string) => void;
@@ -35,7 +35,10 @@ export const DropdownMenu = ({
       {activeDropdown === taskId && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border">
           <button
-            onClick={() => toggleTaskStatus(taskId)}
+            onClick={() => {
+              toggleTaskStatus(taskId, task.status);
+              setActiveDropdown(activeDropdown === taskId ? null : taskId);
+            }}
             className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center"
           >
             {task.status === "in-progress" ? (

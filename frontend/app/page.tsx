@@ -4,12 +4,12 @@ import { Dialog } from "@/components/Dialog";
 import { DropdownMenu } from "@/components/DialogMenu";
 import { useTask } from "@/hooks/useTask";
 import { NewTaskForm, Task } from "@/types/types";
+import { axiosInstance } from "@/utils/axiosIntance";
 import { useState, useCallback, useMemo } from "react";
 
 const TaskManager: React.FC = () => {
-  const { tasks, createTask, deleteTask, updateTask } = useTask();
+  const { tasks, createTask, deleteTask, updateTask, toggleTask } = useTask();
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState<boolean>(false);
-  const [selectedId] = useState<string | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState<boolean>(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [newTask, setNewTask] = useState<NewTaskForm>({
@@ -199,7 +199,7 @@ const TaskManager: React.FC = () => {
                         task={task}
                         activeDropdown={activeDropdown}
                         setActiveDropdown={setActiveDropdown}
-                        toggleTaskStatus={() => {}}
+                        toggleTaskStatus={toggleTask}
                         setEditingTask={setEditingTask}
                         setIsEditDialogOpen={setIsEditDialogOpen}
                         deleteTask={deleteTask}
@@ -255,7 +255,7 @@ const TaskManager: React.FC = () => {
                           task={task}
                           activeDropdown={activeDropdown}
                           setActiveDropdown={setActiveDropdown}
-                          toggleTaskStatus={toggleTaskStatus}
+                          toggleTaskStatus={toggleTask}
                           setEditingTask={setEditingTask}
                           setIsEditDialogOpen={setIsEditDialogOpen}
                           deleteTask={deleteTask}
@@ -364,7 +364,7 @@ const TaskManager: React.FC = () => {
               <button
                 onClick={() => {
                   updateTask(editingTask).then(() => {
-                    setIsCreateDialogOpen(false);
+                    setIsEditDialogOpen(false);
                     setEditingTask({
                       status: "in-progress",
                       taskId: "",
