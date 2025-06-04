@@ -47,7 +47,7 @@ export const useTask = () => {
         "/task",
         {
           ...data,
-          ownerId: "abc",
+          ownerId: user?.uid,
         },
         getAuthHeaders()
       );
@@ -96,7 +96,7 @@ export const useTask = () => {
 
   const deleteTask = async (id: number) => {
     try {
-      await axiosInstance.delete(`/tasks/${id}`, getAuthHeaders());
+      await axiosInstance.delete(`/delete/${id}`, getAuthHeaders());
       setDepsUpdate(Date.now());
     } catch (err: any) {
       console.error(err);
