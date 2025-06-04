@@ -98,7 +98,7 @@ export default function Signup() {
               id="name"
               {...register("name", { required: "Full name is required" })}
               placeholder="Enter your full name"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full px-3 text-black py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             />
             {errors.name && (
               <p className="text-xs text-red-600">
@@ -119,7 +119,7 @@ export default function Signup() {
               type="email"
               {...register("email", { required: "Email is required" })}
               placeholder="Enter your email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full text-black px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             />
             {errors.email && (
               <p className="text-xs text-red-600">
@@ -141,7 +141,7 @@ export default function Signup() {
                 type={showPassword ? "text" : "password"}
                 {...register("password", { required: "Password is required" })}
                 placeholder="Create a password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                className="w-full text-black px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               />
               <button
                 type="button"
@@ -191,7 +191,7 @@ export default function Signup() {
                   required: "Please confirm your password",
                 })}
                 placeholder="Confirm your password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                className="w-full px-3 text-black py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
               />
               <button
                 type="button"
